@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Next Gen Infrastructure</title>
+
+		<meta name="description" content="Openstack and Docker">
+		<meta name="author" content="Graeme Gillies">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>Next Gen Infrastructure</h2>
+					<h3>Openstack and Docker</h3>
+					<p>
+						<small>Created by Graeme Gillies</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Agenda</h2>
+                                                <ul>
+                                                        <li class="fragment">Who am I?</li>
+                                                        <li class="fragment">Infrastructure Overview</li>
+                                                        <li class="fragment">Openstack</li>
+                                                        <li class="fragment">Docker and Container Management</li>
+                                                        <li class="fragment">Demonstration</li>
+                                                        <li class="fragment">The future</li>
+                                                </ul>
+					<aside class="notes">
+					</aside>
+				</section>
+
+                                <section>
+                                      <h2>Who am I?</h2>
+                                          <ul>
+                                              <li>Cloud Architect at Red Hat</li>
+                                              <li>Systems Administrator/Operations Background</li>
+                                              <li>Over 3.5 years experience building/maintaining Private Clouds</li>
+                                          </ul>
+                                </section>
+
+                                <section>
+                                    <h2>Infrastructure Overview</h2>
+                                    <h3>Layers of Infrastructure</h3>
+                                    <img src="dev_ops_presnetation_app_layers_no_iaas_paas.png">
+                                <aside class="notes">
+                                    <ul>
+                                        <li>Focus on private infrastructure, but a lot of this can be applied to those using public cloud</li>
+                                        <li>Might see a an absense of PAAS here, today we are just looking at two "raw technologies" underneath PAAS</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>Infrastructure Overview</h2>
+                                    <h3>Typical Application Ecosystem</h3>
+                                    <img src="infrastructure_groups.png">
+                                <aside class="notes">
+                                    <ul>
+                                        <li>This is a simplistic view</li>
+                                        <li>Innovation is happening in all these areas</li>
+                                        <li>going to try and look at two interesting technology ecosystems</li>
+                                        <li>openstack which tries to cover all areas</li>
+                                        <li>Docker which covers the application space</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>Openstack</h2>
+                                    <h3>Private Cloud Compute Platform</h3>
+                                    <ul>
+                                        <li class="fragment">Compute, Networking, Storage</li>
+                                        <li class="fragment">Load Balancer AAS (in Neutron)</li>
+                                        <li class="fragment">Database AAS (Trove Project)</li>
+                                        <li class="fragment">Monitoring AAS (Telemetry Project)</li>
+                                        <li class="fragment">Filesystem AAS (Manila Project)</li>
+                                        <li class="fragment">VPN AAS (in Neutron)</li>
+                                    <ul>
+                                <aside class="notes">
+                                    <ul>
+                                        <li>Gloss over Openstack a bit here as most people know about it and possibly have used it</li>
+                                        <li>A lot of these projects (e.g. LB) have plugins to traditional hardware solutions</li>
+                                        <li>Utilise full infrastructure Orchestration via Openstack Heat</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>Openstack</h2>
+                                    <h3>Orchestration via Heat</h3>
+                                    <a href="https://raw.githubusercontent.com/openstack/heat-templates/master/hot/autoscaling.yaml">example template</a>
+                                <aside class="notes">
+                                    <ul>
+                                        <li>Very similar to those that use amazon cloudformations (os has a cloudformations compatible api)</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>Docker and Container management</h2>
+                                    <h3>Lightweight container management with a git-like workflow</h3>
+                                    <ul>
+                                      <li class="fragment">Incredibly powerful packaging tool</li> 
+                                      <li class="fragment">Explosion of tools and ecosystems around managing and deploying dockers</li>
+                                      <li class="fragment">Designed to be immutable, though they have the ability to attach storage volumes</li>
+                                      <li class="fragment">Very attractable workflow for repeatable deployment</li>
+                                      <li class="fragment">Synergises well with "12 Factor App" design</li>
+                                    </ul>
+                                <aside class="notes">
+                                    <ul>
+                                        <li>People are trying to figure out how to push other infrastructure pieces (data stores and load balancers) into docker</li>
+                                        <li>Because of their design, linking containers together (especially over remote hosts) is a little tricky</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>Docker and Container management</h2>
+                                    <h3>Lightweight container management with a git-like workflow</h3>
+                                    <a href="http://www.mindmeister.com/389671722/docker-ecosystem">docker ecosystem</a>
+                                </section>
+
+                                <section>
+                                    <h2>Demonstration</h2>
+                                    <h3>So what can we do now?</h3>
+                                <aside class="notes">
+                                    <ul>
+                                        <li>Do two examples today of deploying Docker infrastructure on Openstack</li>
+                                        <li>One is "the nuts and bolts example" of CoreOS, fleet, and systemd</li>
+                                        <li>The second example is using RHEL7 and Shipyard which is a basic, web based container application tool</li>
+                                        <li>The examples will focus around front door and application groups</li>
+                                        <li>Won't be demoing the native openstack integration with docker as it's been pulled back out in the latest release</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+                                <section>
+                                    <h2>The future</h2>
+                                    <ul>
+                                        <li class="fragment">Operations will be better be able to provide infrastructure and platforms as a "product" to developers</li>
+                                        <li class="fragment">Developers should be able to better build their applications and provide repeatable/workable deployment units</li>
+                                        <li class="fragment">Both Developers and Operations can unify design and management of entire ecosystems</li>
+                                        <li class="fragment">We will continue to explore containerisation and see how far we can push it</li>
+                                        <li class="fragment">IAAS/PAAS/Container/Configuration Management/Orchestration solutions will become more aware of each other</li>
+                                        <li class="fragment">Dedicated Hardware Devices will be around for a while, but they will give way to Software Based Solution</li>
+                                    </ul>
+                                </section>
+                                <aside class="notes">
+                                </aside>
+
+                                <section>
+                                    <h2>The future</h2>
+                                    <h3>Projects to keep an eye on</h3>
+                                    <ul>
+                                        <li class="fragment">Google Kubenetes</li>
+                                        <li class="fragment">Red Hat Openshift</li>
+                                        <li class="fragment">Flynn</li>
+                                        <li class="fragment">Openstack Solum</li>
+                                    </ul>
+                                <aside class="notes">
+                                    <ul>
+                                        <li>Google kubernetes seems to be a strong container orchestration stack<li>
+                                        <li>Openshift recently announced their technology stack and roadmap for Openshift 3.0</li>
+                                        <li>Flynn is a docker based PAAS solution</li>
+                                        <li>Solum aims to provide a "Development Workflow" as a service</li>
+                                    </ul>
+                                </aside>
+                                </section>
+
+				<section>
+					<h1>Questions?</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
